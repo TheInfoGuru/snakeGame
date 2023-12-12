@@ -3,17 +3,19 @@ from turtle import Screen, Turtle
 SEGMENT_SIZE = 20
 
 
-class Snake:
+class Snake(Turtle):
     def __init__(self):
-        self.segments = [SnakeSegment().setx(-20 * i) for i in range(3)]
-        self.heading = 90
-        self.segments.set_heading()
+        super().__init__()
+        self.segments = [SnakeSegment() for i in range(3)]
+        [segment.setx(-20 * i) for i, segment in enumerate(self.segments)]
+        self.heading = 0
 
     def add_segment(self):
         pass
 
-    def move_snake(self):
-        pass
+    def move(self):
+        for segment in self.segments:
+            segment.forward(3)
 
     def set_heading(self):
         for segment in self.segments:
@@ -25,8 +27,6 @@ class SnakeSegment(Turtle):
         super().__init__(shape="square")
         self.penup()
         self.color("white")
-        self.mode = "logo"
-
 
 
 def setup_screen():
@@ -46,6 +46,9 @@ def setup_screen():
 def main():
     screen = setup_screen()
     snake = Snake()
+    snake.set_heading()
+    while True:
+        snake.move()
 
     screen.mainloop()
 
